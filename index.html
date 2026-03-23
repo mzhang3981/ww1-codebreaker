@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Codebreakers — WWI Cryptography Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- TITLE SCREEN -->
+    <div id="screen-title" class="screen active">
+        <div class="scanlines"></div>
+        <div class="title-content">
+            <h1 class="game-title">THE CODEBREAKERS</h1>
+            <p class="subtitle">Cryptography in the Great War, 1914–1918</p>
+            <div class="title-divider"></div>
+            <p class="intro-text">
+                You are an Allied cryptanalyst. The fate of nations rests on your ability to
+                decipher intercepted enemy communications. Every second counts — lives hang
+                in the balance.
+            </p>
+            <button class="btn btn-primary" onclick="Game.startBriefing()">BEGIN MISSION</button>
+            <p class="credit">A project by Michael Lu &amp; Michael Zhang</p>
+        </div>
+    </div>
+
+    <!-- BRIEFING SCREEN -->
+    <div id="screen-briefing" class="screen">
+        <div class="scanlines"></div>
+        <div class="briefing-content">
+            <div class="classified-stamp">CLASSIFIED</div>
+            <h2 id="briefing-title"></h2>
+            <div class="briefing-date" id="briefing-date"></div>
+            <div class="briefing-text" id="briefing-text"></div>
+            <div class="briefing-objective">
+                <h3>OBJECTIVE</h3>
+                <p id="briefing-objective"></p>
+            </div>
+            <button class="btn btn-primary" onclick="Game.startLevel()">ACCEPT MISSION</button>
+        </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="screen-game" class="screen">
+        <div class="scanlines"></div>
+        <div class="game-hud">
+            <div class="hud-left">
+                <div class="hud-item">
+                    <span class="hud-label">MISSION</span>
+                    <span class="hud-value" id="hud-level"></span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">LOCATION</span>
+                    <span class="hud-value" id="hud-location"></span>
+                </div>
+            </div>
+            <div class="hud-center">
+                <div class="timer-container">
+                    <div class="timer-bar-bg">
+                        <div class="timer-bar" id="timer-bar"></div>
+                    </div>
+                    <span class="timer-text" id="timer-text">05:00</span>
+                </div>
+            </div>
+            <div class="hud-right">
+                <div class="hud-item">
+                    <span class="hud-label">HINTS</span>
+                    <span class="hud-value" id="hud-hints">3</span>
+                </div>
+                <button class="btn btn-small" id="btn-hint" onclick="Game.useHint()">USE HINT</button>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <!-- Level 1: Zimmermann Telegram -->
+            <div id="level-1" class="level-container" style="display:none;">
+                <div class="cipher-section">
+                    <h3>INTERCEPTED TELEGRAM — Encoded Numerals</h3>
+                    <div class="cipher-text" id="cipher-zimmermann"></div>
+                </div>
+                <div class="reference-section">
+                    <h3>PARTIAL CODEBOOK (Code 0075)</h3>
+                    <p class="ref-note">Use the codebook to decode each number group into its corresponding word.</p>
+                    <div class="codebook" id="codebook"></div>
+                </div>
+                <div class="answer-section">
+                    <h3>DECODED MESSAGE</h3>
+                    <p class="instruction">Click each numbered code group above, then select the matching word from the codebook to fill in the message below.</p>
+                    <div class="decode-slots" id="decode-slots-1"></div>
+                    <button class="btn btn-primary" onclick="Game.checkAnswer()">SUBMIT DECRYPTION</button>
+                </div>
+            </div>
+
+            <!-- Level 2: ADFGVX Cipher -->
+            <div id="level-2" class="level-container" style="display:none;">
+                <div class="cipher-section">
+                    <h3>INTERCEPTED FIELD CIPHER — ADFGVX</h3>
+                    <div class="cipher-text" id="cipher-adfgvx"></div>
+                </div>
+                <div class="reference-section">
+                    <h3>ADFGVX DECRYPTION TOOLS</h3>
+                    <p class="ref-note">Step 1: Use the keyword to undo the columnar transposition. Step 2: Read pairs of letters and look up each pair in the Polybius square.</p>
+                    <div class="adfgvx-tools">
+                        <div class="tool-box">
+                            <h4>Polybius Square</h4>
+                            <table class="polybius" id="polybius-table"></table>
+                        </div>
+                        <div class="tool-box">
+                            <h4>Transposition Workspace</h4>
+                            <p>Keyword: <strong id="adfgvx-keyword"></strong></p>
+                            <div id="transposition-workspace"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="answer-section">
+                    <h3>DECRYPTED PLAINTEXT</h3>
+                    <input type="text" id="answer-adfgvx" class="answer-input" placeholder="Type the decrypted message here..." autocomplete="off">
+                    <button class="btn btn-primary" onclick="Game.checkAnswer()">SUBMIT DECRYPTION</button>
+                </div>
+            </div>
+
+            <!-- Level 3: Choctaw Code Talkers -->
+            <div id="level-3" class="level-container" style="display:none;">
+                <div class="cipher-section">
+                    <h3>INTERCEPTED FIELD TRANSMISSION — Unknown Language</h3>
+                    <div class="cipher-text" id="cipher-choctaw"></div>
+                    <p class="cipher-note">German intelligence is unable to identify this language. Your team has identified it as Choctaw.</p>
+                </div>
+                <div class="reference-section">
+                    <h3>CHOCTAW-ENGLISH MILITARY LEXICON</h3>
+                    <p class="ref-note">The Choctaw soldiers used everyday words as military code-words. Match each Choctaw phrase to its military meaning.</p>
+                    <div class="choctaw-dictionary" id="choctaw-dict"></div>
+                </div>
+                <div class="answer-section">
+                    <h3>TRANSLATED FIELD ORDERS</h3>
+                    <p class="instruction">Select each highlighted Choctaw phrase above, then choose the correct English military meaning to build the decoded orders.</p>
+                    <div class="decode-slots" id="decode-slots-3"></div>
+                    <button class="btn btn-primary" onclick="Game.checkAnswer()">SUBMIT TRANSLATION</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hint Panel -->
+        <div id="hint-panel" class="hint-panel" style="display:none;">
+            <div class="hint-content">
+                <h4>INTELLIGENCE REPORT</h4>
+                <p id="hint-text"></p>
+                <button class="btn btn-small" onclick="Game.closeHint()">DISMISS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="screen-result" class="screen">
+        <div class="scanlines"></div>
+        <div class="result-content">
+            <div id="result-stamp" class="result-stamp"></div>
+            <h2 id="result-title"></h2>
+            <div class="result-text" id="result-text"></div>
+            <div class="history-box">
+                <h3>HISTORICAL OUTCOME</h3>
+                <p id="history-text"></p>
+            </div>
+            <button class="btn btn-primary" id="btn-next" onclick="Game.nextLevel()"></button>
+        </div>
+    </div>
+
+    <!-- FINAL SCREEN -->
+    <div id="screen-final" class="screen">
+        <div class="scanlines"></div>
+        <div class="final-content">
+            <h1>WAR'S END</h1>
+            <div class="final-divider"></div>
+            <div class="final-stats">
+                <h3>YOUR SERVICE RECORD</h3>
+                <div id="final-stats-list"></div>
+            </div>
+            <div class="final-message" id="final-message"></div>
+            <div class="final-reflection">
+                <p>Behind the trenches and battlefields of World War I, cryptographers worked tirelessly
+                in the shadows. Their successes and failures shaped the course of history — from
+                bringing the United States into the war to anticipating enemy offensives. The art of
+                codebreaking proved that wars are won not only with weapons, but with intelligence.</p>
+            </div>
+            <button class="btn btn-primary" onclick="Game.restart()">PLAY AGAIN</button>
+            <p class="credit">A project by Michael Lu &amp; Michael Zhang<br>AS4052 — Dr. Keesee &amp; Ms. Davenport</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
