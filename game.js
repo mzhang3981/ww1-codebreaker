@@ -30,13 +30,13 @@ const Game = (() => {
             briefing: {
                 title: "Mission I: The Zimmermann Telegram",
                 date: "January 17, 1917",
-                text: `British naval intelligence has intercepted a coded telegram sent by German Foreign Secretary Arthur Zimmermann to the German Ambassador in Mexico. The message was encrypted using the German diplomatic code known as "0075."<br><br>Our codebreakers in Room 40 have partially cracked the code. We have recovered portions of the codebook. Your task is to use the available codebook entries to decode the critical contents of the telegram.<br><br>Intelligence suggests this message may contain a proposal that could change the course of the war. Time is of the essence — if Germany discovers we've intercepted this communication, they will change their codes.`,
+                text: `British naval intelligence has intercepted a coded telegram sent by German Foreign Secretary Arthur Zimmermann to the German Ambassador in Mexico. The message was encrypted using the German diplomatic code known as "0075."<br><br>Our codebreakers in Room 40 have partially cracked the code. We have recovered portions of the codebook. Your task is to use the available codebook entries to decode the critical contents of the telegram.<br><br>Intelligence suggests this message may contain a proposal that could change the course of the war. If Germany discovers we've intercepted this communication, they will change their codes.`,
                 objective: "Use the partial codebook to decode the intercepted number groups into the original German diplomatic message. The contents of this telegram could bring the United States into the war."
             },
             hints: [
                 "The telegram proposes a military alliance between two nations against the United States.",
-                "Germany is offering Mexico something it lost in 1848 — territory in the American Southwest.",
-                "The first word of the decoded message begins with 'We' — Germany is making a direct proposal."
+                "Germany is offering Mexico territory it lost in the American Southwest.",
+                "The first word of the decoded message begins with 'We', meaning Germany is making a direct proposal."
             ],
             // Simplified version of the Zimmermann Telegram using code numbers
             codeGroups: [
@@ -77,7 +77,7 @@ const Game = (() => {
             failResult: {
                 title: "Decryption Failed",
                 text: "Time has run out. Without the decoded contents of this telegram, British intelligence cannot convince the Americans of Germany's treachery.",
-                history: "Had Room 40 failed to decode the Zimmermann Telegram, the United States may have remained neutral far longer. Without American troops and resources, the exhausted Allied powers might have been forced to negotiate a less favorable peace — or even face defeat on the Western Front."
+                history: "Had Room 40 failed to decode the Zimmermann Telegram, the United States may have remained neutral far longer. Without American troops and resources, the exhausted Allied powers might have been forced to negotiate a less favorable peace or even face defeat on the Western Front."
             }
         },
 
@@ -90,13 +90,13 @@ const Game = (() => {
             briefing: {
                 title: "Mission II: The ADFGVX Cipher",
                 date: "June 1, 1918",
-                text: `German forces have launched a massive spring offensive. Our radio operators have intercepted a field message encrypted with the new German ADFGVX cipher — a fiendishly complex system that combines a Polybius square substitution with columnar transposition.<br><br>French cryptanalyst Lieutenant Georges Painvin has spent months studying this cipher and has determined the key components. He has identified the Polybius square arrangement and the transposition keyword used for this message.<br><br>You must apply his method to decrypt the intercepted message. Intelligence suggests it contains the target of the next German attack.`,
+                text: `German forces have launched a massive spring offensive. Our radio operators have intercepted a field message encrypted with the new German ADFGVX cipher. This a fiendishly complex system that combines a Polybius square substitution with columnar transposition.<br><br>French cryptanalyst Lieutenant Georges Painvin has spent months studying this cipher and has determined the key components. He has identified the Polybius square arrangement and the transposition keyword used for this message.<br><br>You must apply his method to decrypt the intercepted message. Intelligence suggests it contains the target of the next German attack.`,
                 objective: "Use the provided Polybius square and transposition keyword to decrypt the ADFGVX cipher text. The decrypted message will reveal the location of the next German offensive."
             },
             hints: [
                 "First, write the ciphertext under the keyword columns in order. Then rearrange columns alphabetically by keyword letter to undo the transposition.",
                 "After undoing the transposition, read the letters in pairs (e.g., AD, FG). Each pair maps to one character in the Polybius square: first letter = row, second letter = column.",
-                "The target is a French city north of Paris — a strategically vital location on the Western Front."
+                "The target is a French city north of Paris, which is a strategically vital location on the Western Front."
             ],
             // Polybius square (6x6 for ADFGVX, letters A-Z + digits 0-9)
             polybiusKey: "BTALPDHOZKQFVSNGICUXWMRYEJ",  // 26 letters filling the 6x6 (with digits placeholder)
@@ -147,7 +147,7 @@ const Game = (() => {
             acceptableAnswers: ["ATTACKCOMPIEGNE", "ATTACK COMPIEGNE", "ATTACK ON COMPIEGNE"],
             successResult: {
                 title: "Cipher Broken",
-                text: "Brilliant work! The message reads: ATTACK COMPIEGNE. The German army is planning to strike at Compiegne — a vital position that, if captured, would split the Allied lines and open a path to Paris.",
+                text: "Brilliant work! The message reads: ATTACK COMPIEGNE. The German army is planning to strike at Compiegne. This a vital position that, if captured, would split the Allied lines and open a path to Paris.",
                 history: "In reality, French cryptanalyst Georges Painvin broke the ADFGVX cipher on June 2, 1918, after months of painstaking effort. His decryption revealed that the Germans planned to attack between Montdidier and Compiegne. This intelligence allowed French General Foch to reinforce the area just in time. The German offensive was halted, marking a turning point in the war. Painvin's work is considered one of the greatest feats of cryptanalysis in history."
             },
             failResult: {
@@ -166,12 +166,12 @@ const Game = (() => {
             briefing: {
                 title: "Mission III: The Choctaw Code Talkers",
                 date: "October 26, 1918",
-                text: `The Meuse-Argonne Offensive is underway — the largest American military operation of the war. But German intelligence has been intercepting and understanding our field telephone communications, anticipating every move.<br><br>Captain Lawrence of the 142nd Infantry Regiment has devised an ingenious solution: use Choctaw soldiers to transmit orders in their native language. The Germans have never encountered this language and cannot translate it.<br><br>You are an American officer receiving a coded Choctaw field transmission. Using the Choctaw-English military lexicon compiled by the code talkers, you must translate the battlefield orders to coordinate the upcoming assault.`,
+                text: `The Meuse-Argonne Offensive, the largest American military operation of the war, is underway. But German intelligence has been intercepting and understanding our field telephone communications, anticipating every move.<br><br>Captain Lawrence of the 142nd Infantry Regiment has devised an ingenious solution: use Choctaw soldiers to transmit orders in their native language. The Germans have never encountered this language and cannot translate it.<br><br>You are an American officer receiving a coded Choctaw field transmission. Using the Choctaw-English military lexicon compiled by the code talkers, you must translate the battlefield orders to coordinate the upcoming assault.`,
                 objective: "Translate the Choctaw field transmission into English military orders using the code talker lexicon. The Choctaw soldiers used everyday words as substitutes for military terms the language had no words for."
             },
             hints: [
                 "The Choctaw code talkers used their word for 'big gun' to mean artillery, and 'little gun shoot fast' for machine gun.",
-                "The message is a set of tactical orders — it describes troop movements and positions for an attack.",
+                "The message is a set of tactical orders. It describes troop movements and positions for an attack.",
                 "The phrase structure follows standard military orders: who, what action, where."
             ],
             // Choctaw transmission with coded military terms
@@ -219,13 +219,13 @@ const Game = (() => {
             },
             successResult: {
                 title: "Transmission Decoded",
-                text: "The orders are clear: Second Battalion advances to the ridge at dawn. Machine guns cover the flanks. Artillery fires on enemy positions at zero hour. Soldiers hold steady and await the signal. The attack is coordinated — and the Germans have no idea what's coming.",
-                history: "In October 1918, Choctaw members of the 141st and 142nd Infantry Regiments transmitted tactical messages in their native language during the Meuse-Argonne Offensive. German intelligence, which had been successfully tapping American phone lines, was completely baffled. Within 24 hours of deploying the Choctaw code talkers, the tide of battle shifted. The Germans could no longer anticipate American movements. This was the first known use of Native American languages for military communications — a practice that would be expanded with Navajo code talkers in World War II."
+                text: "The orders are clear: Second Battalion advances to the ridge at dawn. Machine guns cover the flanks. Artillery fires on enemy positions at zero hour. Soldiers hold steady and await the signal. The attack is coordinated, and the Germans have no idea what's coming.",
+                history: "In October 1918, Choctaw members of the 141st and 142nd Infantry Regiments transmitted tactical messages in their native language during the Meuse-Argonne Offensive. German intelligence, which had been successfully tapping American phone lines, was completely baffled. Within 24 hours of deploying the Choctaw code talkers, the tide of battle shifted. The Germans could no longer anticipate American movements. This was the first known use of Native American languages for military communications. This would become a practice that would be expanded with Navajo code talkers in World War II."
             },
             failResult: {
                 title: "Translation Failed",
                 text: "Without a proper translation, the field orders cannot be relayed to the battalion commanders. The attack will proceed uncoordinated.",
-                history: "Had the Choctaw code talkers not been utilized, German intelligence would have continued intercepting and understanding American communications. The Meuse-Argonne Offensive — already the deadliest battle in American history with over 26,000 killed — could have suffered even greater casualties as the Germans anticipated each American move."
+                history: "Had the Choctaw code talkers not been utilized, German intelligence would have continued intercepting and understanding American communications. The Meuse-Argonne Offensive, already the deadliest battle in American history with over 26,000 killed, could have suffered even greater casualties as the Germans anticipated each American move."
             }
         }
     ];
@@ -854,7 +854,7 @@ const Game = (() => {
         const msgEl = document.getElementById('final-message');
         let finalMsg = '';
         if (successes === 3) {
-            finalMsg = "Outstanding, cryptanalyst. You have successfully completed all three missions. Your work in Room 40, French Intelligence, and the Meuse-Argonne front helped secure Allied victory. The war ends on November 11, 1918 — and the codebreakers played a role history will never forget.";
+            finalMsg = "Outstanding, cryptanalyst. You have successfully completed all three missions. Your work in Room 40, French Intelligence, and the Meuse-Argonne front helped secure Allied victory. The war ends on November 11, 1918, and the codebreakers played a role history will never forget.";
         } else if (successes >= 2) {
             finalMsg = "Well done. Your codebreaking skills made a significant impact on the war effort, though not every mission succeeded. The Great War has ended, but the lessons of cryptography will echo through the century to come.";
         } else if (successes === 1) {
