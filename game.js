@@ -135,13 +135,13 @@ const Game = (() => {
             // Col R(2): F A G G V F
             // Col T(4): D F X V F A
             // Col Z(5): A X D F G V
-            ciphertext: "ADDDVF AFFGAV FAGGVF DFXVFA AXDFGV",
+            ciphertext: "ADDDFG AFFGVF FAGGVF DFXAAV AXDVFA",
             transpositionColumns: {
-                'F': 'ADDDVF',
+                'F': 'ADDDFG',
                 'R': 'FAGGVF',
-                'I': 'AFFGAV',
-                'T': 'DFXVFA',
-                'Z': 'AXDFGV'
+                'I': 'AFFGVF',
+                'T': 'DFXAAV',
+                'Z': 'AXDVFA'
             },
             answer: "ATTACKCOMPIEGNE",
             acceptableAnswers: ["ATTACKCOMPIEGNE", "ATTACK COMPIEGNE", "ATTACK ON COMPIEGNE"],
